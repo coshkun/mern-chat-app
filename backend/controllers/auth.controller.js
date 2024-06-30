@@ -26,15 +26,16 @@ export const signup = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, salt);
 
         // https://avatar-placeholder.iran.liara.run/
-        const boyPic = `https://avatar.iran.liara.run/public/boy?username=${username}`;
-        const girlPic = `https://avatar.iran.liara.run/public/girl?username=${username}`;
+        //const boyPic = `https://avatar.iran.liara.run/public/boy?username=${username}`;
+        //const girlPic = `https://avatar.iran.liara.run/public/girl?username=${username}`;
 
         const newUser = new User({
             fullName,
             username,
             password: hashedPassword,
             gender,
-            profilePic: gender === "male" ? boyPic : girlPic
+            //profilePic: gender === "male" ? boyPic : girlPic
+            profilePic: `https://api.dicebear.com/9.x/adventurer/png?seed=${username}` // new avatar api
         });
 
         if (newUser) {

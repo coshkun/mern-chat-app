@@ -12,7 +12,17 @@ export const getUsersForSidebar = async (req, res) => {
             return res.status(200).json([]);
         }
 
-        res.status(200).json(allUsers);
+        const mappedUsers = allUsers.map((item) => {
+            return {
+                id:         item._id,
+                fullName:   item.fullName,
+                username:   item.username,
+                gender:     item.gender,
+                profilePic: item.profilePic
+            }
+        });
+
+        res.status(200).json(mappedUsers);
         
     } catch (error) {
         console.log("Error in user.controller.js, 'getUsersForSidebar' method.", error.message);

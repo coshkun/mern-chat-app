@@ -36,9 +36,17 @@ export const sendMessage = async (req, res) => {
         //await conversation.save();
 
         // this will run in parallel
-        Promise.all([conversation.save(), newMessage.save()]);
+        await Promise.all([conversation.save(), newMessage.save()]);
 
-        res.status(201).json(newMessage);
+        const mappedMsg = {
+            id : newMessage._id,
+            senderId: newMessage.senderId,
+            receiverId: newMessage.receiverId,
+            message: newMessage.message,
+            createdAt: newMessage.createdAt,
+            updatedAt: newMessage.updatedAt
+        };
+        res.status(201).json(mappedMsg);
         
     } catch (error) {
         console.log("Error in message.controller.js, 'sendMessage' method.", error.message);
@@ -63,7 +71,18 @@ export const getMessages = async (req, res) => {
 
         const messages = conversation.messages;
 
-        res.status(200).json(messages);
+        const mappedMsg = messages.map( (message) => {
+            return {
+                id : message._id,
+                senderId: message.senderId,
+                receiverId: message.receiverId,
+                message: message.message,
+                createdAt: message.createdAt,
+                updatedAt: message.updatedAt
+            };
+        } )
+
+        res.status(200).json(mappedMsg);
         
     } catch (error) {
         console.log("Error in message.controller.js, 'getMessages' method.", error.message);
