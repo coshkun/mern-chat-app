@@ -4,7 +4,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node ./backend/server.js",
-    "start:dev": "nodemon --inspect ./backend/server.js"
+    "start:dev": "nodemon --inspect ./backend/server.js",
+    "build": "yarn install && yarn --cwd ./frontend install && yarn --cwd ./frontend build"
   },
   "type": "module",
   "keywords": [],

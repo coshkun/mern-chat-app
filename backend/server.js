@@ -1,5 +1,6 @@
 
 //import express from "express";
+import path from "path";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import { app, server, express } from './socket/socket.js';
@@ -15,6 +16,8 @@ dotenv.config();
 //const app = express(); -> moved to socket.js
 const PORT = process.env.PORT || 3000;
 
+const __dirname = path.resolve();
+
 app.use(express.json()); // to parse incoming reqs with JSON payloads
 app.use(cookieParser()); // to parse incoming cookies from req.cookies
 
@@ -22,10 +25,13 @@ app.use('/api/auth', authRoutes);
 app.use('/api/messages', messageRoutes);
 app.use('/api/users', userRoutes);
 
-// app.get('/', (req, res) => {
-//     // root route on http://localhost:3000
-//     res.send("Server is running!");
-// } );
+// PREPARE FOR DEPLOYMENT
+app.use(express.static(path.join(__dirname, "/frontend/dist")));
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
+});
+// //////////////////////
 
 
 //connectToMongoDB

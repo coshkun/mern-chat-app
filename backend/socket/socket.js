@@ -2,7 +2,9 @@ import { Server } from 'socket.io';
 import http from 'http';
 import express from "express";
 
-const PORT = 5173 //process.env.PORT || 3000;
+// Development Only
+//const PORT = 5173 //process.env.PORT || 3000;
+const PORT = 8000 // prod
 
 const app = express();
 
