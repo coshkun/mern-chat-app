@@ -17,6 +17,7 @@ const Message = ({message}) => {
   const bubleBgColor = isFromMe ? 'bg-blue-500' : '';
   const sentTime = extractChatTime(message.createdAt);
   //console.log(sentTime);
+  const shakeClass = message.shouldShake ? "shake" : "";
 
   return (
     <div className={`chat ${chatClassName}`}>
@@ -25,6 +26,7 @@ const Message = ({message}) => {
                 <img
                     alt={`${senderName}'s profile pic`}
                     // "https://avatar.iran.liara.run/public/45"
+                    // https://api.dicebear.com/9.x/adventurer/png?seed=Daisy
                     src={profilePic} />
             </div>
         </div>
@@ -32,7 +34,7 @@ const Message = ({message}) => {
             {senderName}
             <time className="text-xs opacity-50">{' ' + sentTime}</time>
         </div> */}
-        <div className={`chat-bubble text-white ${bubleBgColor} pb-2`}>{message.message}</div>
+        <div className={`chat-bubble text-white ${bubleBgColor} ${shakeClass} pb-2`}>{message.message}</div>
         {/* <div className="chat-footer opacity-50">Delivered</div> */}
         <div className="chat-footer opacity-50 text-xs flex gap-1 items-center">{sentTime}</div> {/* ⎷⎷  */}
     </div>

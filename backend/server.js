@@ -1,7 +1,8 @@
 
-import express from "express";
+//import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
+import { app, server, express } from './socket/socket.js';
 
 import authRoutes from "./routes/auth.routes.js";
 import messageRoutes from "./routes/message.routes.js";
@@ -11,7 +12,7 @@ import connectToMongoDB from "./db/connectToMongoDB.js";
 
 dotenv.config();
 
-const app = express();
+//const app = express(); -> moved to socket.js
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json()); // to parse incoming reqs with JSON payloads
@@ -28,7 +29,7 @@ app.use('/api/users', userRoutes);
 
 
 //connectToMongoDB
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     connectToMongoDB();
     console.log(`Server running on port ${PORT}`);
 } );
